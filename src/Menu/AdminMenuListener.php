@@ -45,7 +45,7 @@ final class AdminMenuListener
         }
 
         $menu->addChild('badges', ['route' => 'oxyshop_sylius_badge_plugin_admin_badge_index'])
-            ->setLabel('oxyshop_sylius_badge_plugin.menu.admin.badges')
+            ->setLabel('oxyshop_sylius_badge_plugin.ui.badges')
             ->setLabelAttribute('icon', 'tag')
         ;
     }

@@ -1,0 +1,6 @@
+oxyshop_sylius_badge_plugin:
+  ui:
+    badge: "Štítek"
+    badges: "Štítky"
+    new_badge: "Nový Štítek"
+    class: "CSS Class"

@@ -1,0 +1,6 @@
+oxyshop_sylius_badge_plugin:
+    ui:
+        badge: "Badge"
+        badges: "Badges"
+        new_badge: "New Badge"
+        class: "CSS Class"

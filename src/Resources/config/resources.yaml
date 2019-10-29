@@ -1,0 +1,7 @@
+sylius_resource:
+    resources:
+        oxyshop_sylius_badge_plugin.badge: # Used as alias in routing.yaml
+            driver: doctrine/orm
+            classes:
+                model: Oxyshop\SyliusBadgePlugin\Entity\Badge
+                interface: Oxyshop\SyliusBadgePlugin\Entity\BadgeInterface

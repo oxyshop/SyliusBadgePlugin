@@ -1,3 +1,7 @@
+imports:
+    - { resource: "grid.yaml" }
+    - { resource: "resources.yaml" }
+
 services:
     # Add item to the admin menu
     oxyshop_sylius_badge_plugin.listener.admin.menu_builder:

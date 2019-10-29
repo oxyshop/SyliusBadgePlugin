@@ -1,0 +1,9 @@
+# Routing configuration is loaded directly from shop (config/routes/oxyshop_sylius_badge_plugin_badge.yaml)
+oxyshop_sylius_badge_plugin:
+    resource: |
+        alias: oxyshop_sylius_badge_plugin.badge
+        section: admin
+        templates: "@SyliusAdmin//Crud"
+        grid: oxyshop_sylius_badge_plugin.badge
+    type: sylius.resource
+    prefix: /admin
