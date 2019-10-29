@@ -8,72 +8,43 @@
 
 Add extra badges to product entity.
 
-## Installation
+## Content
+- [Installation](#installation)
+- [Usage](#usage)
+- [Limitations](#limitations) :warning:
+- [Development](#development)
+- [Implemented functionality](#implemented-functionality)
+- [Contributing](#contributing)
+
+### Installation
+The best way to install bundle is using Composer:
+```bash
+$ composer require oxyshop/sylius-badge-plugin
+```
+
+And you're done.
+
+Other manual changes are done automatically via [Flex](https://symfony.com/doc/current/setup/flex.html). In case you don't use a Flex, you have to do following steps: 
+
+Register plugin `bundles.php`
+```php
+// bundles.php
+
+return [
+    ...
+    Oxyshop\SyliusBadgePlugin\OxyshopSyliusBadgePlugin::class => ['all' => true],
+]
+```
+
+### Usage
 
 @todo
 
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
+### Limitations
 
-2. From the plugin skeleton root directory, run the following commands:
+@todo
 
-    ```bash
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && bin/console assets:install public -e test)
-    
-    $ (cd tests/Application && bin/console doctrine:database:create -e test)
-    $ (cd tests/Application && bin/console doctrine:schema:create -e test)
-    ```
-
-To be able to setup a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
-
-## Usage
-
-### Running plugin tests
-
-  - PHPUnit
-
-    ```bash
-    $ vendor/bin/phpunit
-    ```
-
-  - PHPSpec
-
-    ```bash
-    $ vendor/bin/phpspec run
-    ```
-
-  - Behat (non-JS scenarios)
-
-    ```bash
-    $ vendor/bin/behat --tags="~@javascript"
-    ```
-
-  - Behat (JS scenarios)
- 
-    1. Download [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
-    
-    2. Download [Selenium Standalone Server](https://www.seleniumhq.org/download/).
-    
-    2. Run Selenium server with previously downloaded Chromedriver:
-    
-        ```bash
-        $ java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server-standalone.jar
-        ```
-        
-    3. Run test application's webserver on `localhost:8080`:
-    
-        ```bash
-        $ (cd tests/Application && bin/console server:run localhost:8080 -d public -e test)
-        ```
-    
-    4. Run Behat:
-    
-        ```bash
-        $ vendor/bin/behat --tags="@javascript"
-        ```
-
-### Opening Sylius with your plugin
+### Development
 
 - Using `test` environment:
 
@@ -88,3 +59,9 @@ To be able to setup a plugin's database, remember to configure you database cred
     $ (cd tests/Application && bin/console sylius:fixtures:load -e dev)
     $ (cd tests/Application && bin/console server:run -d public -e dev)
     ```
+
+### Implemented functionality
+@todo
+
+### Contributing
+@todo
