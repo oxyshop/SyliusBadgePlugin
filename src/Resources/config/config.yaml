@@ -1,0 +1,6 @@
+services:
+    # Add item to the admin menu
+    oxyshop_sylius_badge_plugin.listener.admin.menu_builder:
+        class: Oxyshop\SyliusBadgePlugin\Menu\AdminMenuListener
+        tags:
+          - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
