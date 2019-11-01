@@ -4,6 +4,21 @@ oxyshop_sylius_badge_plugin:
         alias: oxyshop_sylius_badge_plugin.badge
         section: admin
         templates: "@SyliusAdmin//Crud"
+        redirect: index
         grid: oxyshop_sylius_badge_plugin.badge
+        vars:
+            all:
+                subheader: api.ui.badge
+            index:
+                icon: 'file image outline'
     type: sylius.resource
     prefix: /admin
+
+# OxyshopSyliusBadgePlugin:CrudUi
+#form: Oxyshop\SyliusConfigurationPlugin\Form\Type\SettingConfigType
+#grid: oxyshop_sylius_badge_plugin.badge_grid
+#    permission: true
+#    vars:
+#        all:
+#            header: oxyshop_sylius_badge_plugin.ui.settings_header
+#            subheader: oxyshop_sylius_badge_plugin.ui.settings_subheader

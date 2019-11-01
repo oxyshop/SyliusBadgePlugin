@@ -4,3 +4,4 @@ oxyshop_sylius_badge_plugin:
         badges: "Badges"
         new_badge: "New Badge"
         class: "CSS Class"
+        product_badges: "Product Badges"

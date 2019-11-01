@@ -19,6 +19,7 @@ final class AdminMenuListener
 {
     /** @var string */
     private const PARENT_NODE = 'catalog';
+
     /** @var string|null */
     private $parentNode;
 
@@ -35,7 +36,7 @@ final class AdminMenuListener
      *
      * @throws \Exception
      */
-    public function addAdminMenuItems(MenuBuilderEvent $event): void
+    public function addItems(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu()
             ->getChild($this->parentNode);

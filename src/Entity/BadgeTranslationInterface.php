@@ -12,20 +12,18 @@ declare(strict_types=1);
 
 namespace Oxyshop\SyliusBadgePlugin\Entity;
 
-use Sylius\Component\Resource\Model\CodeAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
-use Sylius\Component\Resource\Model\TimestampableInterface;
-use Sylius\Component\Resource\Model\ToggleableInterface;
+use Sylius\Component\Resource\Model\TranslationInterface;
 
-interface BadgeInterface extends ResourceInterface, CodeAwareInterface //, TimestampableInterface//, ToggleableInterface
+interface BadgeTranslationInterface extends ResourceInterface, TranslationInterface
 {
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getPosition(): ?int;
+    public function getName(): ?string;
 
     /**
      * @return string|null
      */
-    public function getClass(): ?string;
+    public function getDescription(): ?string;
 }

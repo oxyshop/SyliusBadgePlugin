@@ -15,16 +15,22 @@ namespace Oxyshop\SyliusBadgePlugin\Entity;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
+use Sylius\Component\Resource\Model\TranslatableInterface;
+use Sylius\Component\Resource\Model\TranslatableTrait;
+use Sylius\Component\Resource\Model\TranslationInterface;
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="oxyshop_badge")
  * @ORM\MappedSuperclass()
+ * @ORM\Table(name="oxyshop_badge")
  * @ORM\HasLifecycleCallbacks()
  */
-class Badge implements BadgeInterface
+class Badge implements BadgeInterface, TranslatableInterface
 {
     // use TimestampableTrait;
+
+    use TranslatableTrait {
+        __construct as private initializeTranslationsCollection;
+    }
 
     /**
      * @ORM\Id()
@@ -47,17 +53,17 @@ class Badge implements BadgeInterface
      *
      * @var string
      */
-    private $name;
+    //private $name;
 
     /**
      * @ORM\Column(type="text")
      *
      * @var string
      */
-    private $description;
+    //private $description;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean", nullable=true)
      *
      * @var bool
      */
@@ -68,31 +74,36 @@ class Badge implements BadgeInterface
      *
      * @var int
      */
-    private $order;
+    private $position;
 
     /**
-     * @ORM\Column(length=128)
+     * @ORM\Column(type="string", length=128)
      *
      * @var string
      */
     private $class;
 
     /**
-     * @ORM\Column(type="datetime")
+     * ORM\Column(type="datetime", nullable=true).
      *
      * @var DateTimeInterface|null
      */
-    private $createdAt;
+    //private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * ORM\Column(type="datetime", nullable=true).
      *
      * @var DateTimeInterface|null
      */
-    private $updatedAt;
+    //private $updatedAt;
+
+    public function __construct()
+    {
+        $this->initializeTranslationsCollection();
+    }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -116,7 +127,7 @@ class Badge implements BadgeInterface
     }
 
     /**
-     * @param string $code
+     * @param string|null $code
      */
     public function setCode(?string $code): void
     {
@@ -124,47 +135,15 @@ class Badge implements BadgeInterface
     }
 
     /**
-     * @return string|null
+     * @return bool|null
      */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string|null $name
-     */
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function isEnable()
+    public function isEnable(): ?bool
     {
         return $this->enable;
     }
 
     /**
-     * @param mixed $enable
+     * @param bool|null $enable
      */
     public function setEnable(?bool $enable): void
     {
@@ -172,23 +151,23 @@ class Badge implements BadgeInterface
     }
 
     /**
-     * @return mixed
+     * @return int|null
      */
-    public function getOrder()
+    public function getPosition(): ?int
     {
-        return $this->order;
+        return $this->position;
     }
 
     /**
-     * @param mixed $order
+     * @param int $position
      */
-    public function setOrder($order): void
+    public function setPosition(int $position): void
     {
-        $this->order = $order;
+        $this->position = $position;
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getClass(): ?string
     {
@@ -196,13 +175,14 @@ class Badge implements BadgeInterface
     }
 
     /**
-     * @param mixed $class
+     * @param string $class
      */
-    public function setClass($class): void
+    public function setClass(string $class): void
     {
         $this->class = $class;
     }
 
+    /*
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -222,24 +202,67 @@ class Badge implements BadgeInterface
     {
         $this->updatedAt = $updatedAt;
     }
+    */
 
-    /**
+    /*
+    **
      * @ORM\PrePersist()
      *
      * @throws Exception
-     */
+     *
     public function setCreatedAtValue(): void
     {
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    /**
+    **
      * @ORM\PreUpdate()
      *
      * @throws Exception
-     */
+     *
     public function setUpdatedAtValue(): void
     {
         $this->updatedAt = new \DateTimeImmutable();
+    }
+    */
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->getTranslation()->setName($name);
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->getTranslation()->getName();
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->getTranslation()->setDescription($description);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->getTranslation()->getDescription();
+    }
+
+    /**
+     * @return TranslationInterface
+     */
+    protected function createTranslation(): TranslationInterface
+    {
+        return new BadgeTranslation();
     }
 }
