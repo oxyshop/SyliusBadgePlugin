@@ -14,9 +14,12 @@ namespace Oxyshop\SyliusBadgePlugin\Form\Extension;
 
 use Oxyshop\SyliusBadgePlugin\Form\Type\ProductBadgeType;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductType;
+use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
+use Sylius\Component\Core\Model\ProductInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ProductTypeExtension extends AbstractTypeExtension
 {
@@ -32,6 +35,7 @@ final class ProductTypeExtension extends AbstractTypeExtension
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            /*
             ->add('badges', CollectionType::class, [
                 'entry_type' => ProductBadgeType::class, // Form Class that handle autocomplete input
                 'entry_options' => ['product' => $options['data']],
@@ -41,7 +45,25 @@ final class ProductTypeExtension extends AbstractTypeExtension
                 'label' => false,
                 'block_name' => 'entry',
             ])
+            */
+            ->add('badges', ResourceAutocompleteChoiceType::class, [
+                'label' => 'sylius.ui.product_variants',
+                'multiple' => true,
+                'required' => false,
+                'choice_name' => 'descriptor',
+                'choice_value' => 'code',
+                'resource' => 'sylius.product_variant',
+            ])
         ;
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefined('product');
+        $resolver->setAllowedTypes('product', ProductInterface::class);
     }
 
     /**
@@ -50,5 +72,13 @@ final class ProductTypeExtension extends AbstractTypeExtension
     public function getExtendedTypes(): iterable
     {
         return [ProductType::class];
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlockPrefix(): string
+    {
+        return 'oxyshop_sylius_badge_plugin_product_badge';
     }
 }

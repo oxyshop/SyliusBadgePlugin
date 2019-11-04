@@ -22,7 +22,6 @@ services:
 
     oxyshop.sylius_badge_plugin.from.extension.product:
         class: Oxyshop\SyliusBadgePlugin\Form\Extension\ProductTypeExtension
-
         tags:
             - { name: form.type_extension, extended_type: Sylius\Bundle\ProductBundle\Form\Type\ProductType, priority: -1 }
         #arguments: ['%sylius.model.product.class%', ['sylius']]
