@@ -6,8 +6,7 @@ sylius_resource:
                 model: Oxyshop\SyliusBadgePlugin\Entity\Badge
                 interface: Oxyshop\SyliusBadgePlugin\Entity\BadgeInterface
                 form: Oxyshop\SyliusBadgePlugin\Form\Type\BadgeType
-                #repository: Oxyshop\SyliusBadgePlugin\Repository\BadgeRepository
-                #controller: Oxyshop\SyliusBadgePlugin\Controller\BadgeController
+                repository: Oxyshop\SyliusBadgePlugin\Repository\BadgeRepository
             translation:
                 classes:
                     model: Oxyshop\SyliusBadgePlugin\Entity\BadgeTranslation

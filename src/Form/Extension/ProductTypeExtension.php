@@ -12,22 +12,16 @@ declare(strict_types=1);
 
 namespace Oxyshop\SyliusBadgePlugin\Form\Extension;
 
-use Oxyshop\SyliusBadgePlugin\Form\Type\ProductBadgeType;
+use Oxyshop\SyliusBadgePlugin\Form\Type\BadgeAutocompleteChoiceType;
+use Oxyshop\SyliusBadgePlugin\Form\Type\BadgeChoiceType;
 use Sylius\Bundle\ProductBundle\Form\Type\ProductType;
-use Sylius\Bundle\ResourceBundle\Form\Type\ResourceAutocompleteChoiceType;
 use Sylius\Component\Core\Model\ProductInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ProductTypeExtension extends AbstractTypeExtension
 {
-    public function __construct()
-    {
-        dump('asd');
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -35,24 +29,11 @@ final class ProductTypeExtension extends AbstractTypeExtension
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            /*
-            ->add('badges', CollectionType::class, [
-                'entry_type' => ProductBadgeType::class, // Form Class that handle autocomplete input
-                'entry_options' => ['product' => $options['data']],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('badges', BadgeChoiceType::class, [
                 'label' => false,
-                'block_name' => 'entry',
-            ])
-            */
-            ->add('badges', ResourceAutocompleteChoiceType::class, [
-                'label' => 'sylius.ui.product_variants',
-                'multiple' => true,
                 'required' => false,
-                'choice_name' => 'descriptor',
-                'choice_value' => 'code',
-                'resource' => 'sylius.product_variant',
+                'multiple' => true,
+                'expanded' => true,
             ])
         ;
     }
