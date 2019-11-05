@@ -1,0 +1,38 @@
+services:
+    # Badge
+    oxyshop.sylius_badge_plugin.form.type.badge_type:
+        class: Oxyshop\SyliusBadgePlugin\Form\Type\BadgeType
+        arguments:
+            - '%oxyshop_sylius_badge_plugin.model.badge.class%'
+            - ['sylius']
+        tags:
+            - { name: form.type }
+
+    # Badge Translation
+    oxyshop.sylius_badge_plugin.form.type.badge_translation_type:
+        class: Oxyshop\SyliusBadgePlugin\Form\Type\BadgeTranslationType
+        arguments:
+            - '%oxyshop_sylius_badge_plugin.model.badge_translation.class%'
+            - ['sylius']
+        tags:
+            - { name: form.type }
+
+    # Badge Choice Type
+    oxyshop.sylius_badge_plugin.form.type.badge_choice_type:
+        class: Oxyshop\SyliusBadgePlugin\Form\Type\BadgeChoiceType
+        arguments: ['@oxyshop_sylius_badge_plugin.repository.badge']
+        tags:
+            - { name: form.type }
+
+    #oxyshop.sylius_badge_plugin.form.type.product_badge_type:
+    #    class: Oxyshop\SyliusBadgePlugin\Form\Type\ProductBadgeType
+    #    tags:
+    #        - { name: form.type }
+    #    arguments: ['%sylius.model.product.class%', ['sylius']]
+
+    # Extend product form
+    oxyshop.sylius_badge_plugin.from.extension.product:
+        class: Oxyshop\SyliusBadgePlugin\Form\Extension\ProductTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\ProductBundle\Form\Type\ProductType, priority: -1 }
+        #arguments: ['%sylius.model.product.class%', ['sylius']]

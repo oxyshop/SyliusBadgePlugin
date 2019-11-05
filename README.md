@@ -8,72 +8,58 @@
 
 Add extra badges to product entity.
 
-## Installation
+## Content
 
-@todo
+- [Installation](#installation)
+- [Usage](#usage)
+- [Limitations](#limitations) :warning:
+- [Development](#development)
+- [Implemented functionality](#implemented-functionality)
+- [Contributing](#contributing)
 
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
+### Installation
 
-2. From the plugin skeleton root directory, run the following commands:
+The best way to install bundle is using Composer:
+```bash
+$ composer require oxyshop/sylius-badge-plugin
+```
 
-    ```bash
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && bin/console assets:install public -e test)
-    
-    $ (cd tests/Application && bin/console doctrine:database:create -e test)
-    $ (cd tests/Application && bin/console doctrine:schema:create -e test)
-    ```
+<!--
+And you're done.
 
-To be able to setup a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
+Other manual changes are done automatically via [Flex](https://symfony.com/doc/current/setup/flex.html). In case you don't use a Flex, you have to do following steps:
+--> 
 
-## Usage
+Register plugin `bundles.php`
+```php
+// bundles.php
 
-### Running plugin tests
+return [
+    ...
+    Oxyshop\SyliusBadgePlugin\OxyshopSyliusBadgePlugin::class => ['all' => true],
+]
+```
 
-  - PHPUnit
+*  Your entity `Product` has to implement `BadgableInterface`. You can use **trait** `BadgeableTrait` to achieve that.
+*  Import routing plugin configuration from `Resource/config/default`
+*  Update your schema via database migration
 
-    ```bash
-    $ vendor/bin/phpunit
-    ```
+For guide to use your own entity see [Sylius docs - Customizing Models](https://docs.sylius.com/en/latest/customization/model.html)
 
-  - PHPSpec
+### Usage
 
-    ```bash
-    $ vendor/bin/phpspec run
-    ```
+You can manage badges in shop administration:
+![](docs/admin-badges.png)
 
-  - Behat (non-JS scenarios)
+Add them to the product in "Badges" tab:
+![](docs/admin-product-badges.png)
 
-    ```bash
-    $ vendor/bin/behat --tags="~@javascript"
-    ```
+### Limitations
 
-  - Behat (JS scenarios)
- 
-    1. Download [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/)
-    
-    2. Download [Selenium Standalone Server](https://www.seleniumhq.org/download/).
-    
-    2. Run Selenium server with previously downloaded Chromedriver:
-    
-        ```bash
-        $ java -Dwebdriver.chrome.driver=chromedriver -jar selenium-server-standalone.jar
-        ```
-        
-    3. Run test application's webserver on `localhost:8080`:
-    
-        ```bash
-        $ (cd tests/Application && bin/console server:run localhost:8080 -d public -e test)
-        ```
-    
-    4. Run Behat:
-    
-        ```bash
-        $ vendor/bin/behat --tags="@javascript"
-        ```
+- `BadgeChoiceType` use `Doctrine\ORM\EntityRepository::findAll()` method to get all badges
+- Installation of this plugin is a little bit tricky according [best practices](https://github.com/Sylius/Sylius/issues/9214)
 
-### Opening Sylius with your plugin
+### Development
 
 - Using `test` environment:
 
@@ -81,10 +67,23 @@ To be able to setup a plugin's database, remember to configure you database cred
     $ (cd tests/Application && bin/console sylius:fixtures:load -e test)
     $ (cd tests/Application && bin/console server:run -d public -e test)
     ```
-    
+
 - Using `dev` environment:
 
     ```bash
     $ (cd tests/Application && bin/console sylius:fixtures:load -e dev)
     $ (cd tests/Application && bin/console server:run -d public -e dev)
     ```
+
+### Implemented functionality
+
+- [x] Badge CRUD
+- [x] Edit associations between the product and the labels
+- [ ] Edit associations between the label and the products
+- [ ] Use `BadgeAutocomplteChoiceType` instead of `BadgeChoiceType`
+- [ ] Flex receipt
+- [ ] Behat and PHPSpecs tests
+
+### Contributing
+
+Feel free to create new issue or even better - send your PR.

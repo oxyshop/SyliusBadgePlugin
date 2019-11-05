@@ -1,0 +1,24 @@
+imports:
+    - { resource: "form.yaml" }
+    - { resource: "grid.yaml" }
+    - { resource: "resources.yaml" }
+
+jms_serializer:
+    metadata:
+        directories:
+            oxyshop-badge:
+                namespace_prefix: "Oxyshop\\SyliusBadgePlugin"
+                path: "@OxyshopSyliusBadgePlugin/Resources/config/serializer"
+
+services:
+    # Add item to the admin menu
+    oxyshop_sylius_badge_plugin.listener.admin.menu_builder:
+        class: Oxyshop\SyliusBadgePlugin\Menu\AdminMenuListener
+        tags:
+          - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addItems }
+
+    # Add item to the admin product menu
+    oxyshop_sylius_badge_plugin.listener.admin.product_menu_builder:
+        class: Oxyshop\SyliusBadgePlugin\Menu\AdminProductMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.product.form, method: addItems }

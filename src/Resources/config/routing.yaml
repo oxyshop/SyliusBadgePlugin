@@ -1,0 +1,44 @@
+# Routing configuration is loaded directly from shop (config/routes/oxyshop_sylius_badge_plugin_badge.yaml)
+oxyshop_sylius_badge_plugin:
+    resource: |
+        alias: oxyshop_sylius_badge_plugin.badge
+        section: admin
+        templates: "@SyliusAdmin//Crud"
+        redirect: index
+        grid: oxyshop_sylius_badge_plugin.badge
+        vars:
+            all:
+                subheader: api.ui.badge
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+    prefix: /admin
+
+oxyshop_admin_ajax_badge_by_name_phrase:
+    path: /ajax/sections/search
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: oxyshop_sylius_badge_plugin.controller.badge:indexAction
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByNamePart
+                arguments:
+                    phrase: $phrase
+                    locale: expr:service('sylius.context.locale').getLocaleCode()
+
+oxyshop_admin_ajax_badge_by_code:
+    path: /ajax/sections/code
+    methods: [GET]
+    defaults:
+        _format: json
+        _controller: oxyshop_sylius_badge_plugin.controller.badge:indexAction
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findBy
+                arguments:
+                    - code: $code
