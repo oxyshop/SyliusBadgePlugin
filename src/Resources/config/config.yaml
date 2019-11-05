@@ -3,6 +3,13 @@ imports:
     - { resource: "grid.yaml" }
     - { resource: "resources.yaml" }
 
+jms_serializer:
+    metadata:
+        directories:
+            oxyshop-badge:
+                namespace_prefix: "Oxyshop\\SyliusBadgePlugin"
+                path: "@OxyshopSyliusBadgePlugin/Resources/config/serializer"
+
 services:
     # Add item to the admin menu
     oxyshop_sylius_badge_plugin.listener.admin.menu_builder:
