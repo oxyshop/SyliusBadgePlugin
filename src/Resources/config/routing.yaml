@@ -42,12 +42,3 @@ oxyshop_admin_ajax_badge_by_code:
                 method: findBy
                 arguments:
                     - code: $code
-
-# OxyshopSyliusBadgePlugin:CrudUi
-#form: Oxyshop\SyliusConfigurationPlugin\Form\Type\SettingConfigType
-#grid: oxyshop_sylius_badge_plugin.badge_grid
-#    permission: true
-#    vars:
-#        all:
-#            header: oxyshop_sylius_badge_plugin.ui.settings_header
-#            subheader: oxyshop_sylius_badge_plugin.ui.settings_subheader
